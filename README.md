@@ -78,4 +78,7 @@ $ git push -u origin new_branch
 Once you push the changes to your repo, the Compare & pull request button will appear in GitHub.
 
 
-
+# Other links
+https://linuxhint.com/dd_command_linux/
+https://gist.github.com/myusuf3/7f645819ded92bda6677
+https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule
