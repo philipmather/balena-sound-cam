@@ -38,7 +38,51 @@ git submodule foreach git pull origin master
 ```
 
 
+# Develop locally
+* burn dev version to img
+```
+sudo dd if=~/Downloads/balena/balena-cloud-balena-sound-cam-raspberrypi4-64-2.75.0+rev1-dev-v12.5.10.img of=/dev/sdb bs=1M conv=noerror,sync status=progress
+sudo eject /dev/sdb
+```
+* boot it, wait for it to update, and become available, then switch it to local mode and ensure mDNS is allowed allowed through your workstations firewall.
+* Balena scan should now find it...
+```
+[matherp@localhost balena-cam]$ sudo /usr/local/bin/balena scan
+[sudo] password for matherp: 
+Scanning for local balenaOS devices... Reporting scan results
+- 
+  host:      balena-3.local
+  address:   192.168.0.37
+  osVariant: production
+- 
+  host:          balena-2.local
+  address:       192.168.0.36
+  osVariant:     development
+  dockerInfo: 
+    Containers:        1
+    ContainersRunning: 1
+    ContainersPaused:  0
+    ContainersStopped: 0
+    Images:            10
+    Driver:            overlay2
+    SystemTime:        2021-05-31T17:47:11.540130235Z
+    KernelVersion:     5.4.83-v8
+    OperatingSystem:   balenaOS 2.75.0+rev1
+    Architecture:      aarch64
+  dockerVersion: 
+    Version:    19.03.18
+    ApiVersion: 1.40
+```
+* You will need to pull all the submodules down locally now rather then just referencing them in git
+```
+git submodule update --init --recursive
+```
+
+
 #Issues
+##OSes
+* Redhat firewalld has mdns closed on the "default" zone, switch to "home" or similar zone or explicitly allow it for balena scan to work.
+
 ##Browsers
 * Fix chrome to work with WebRTC https://github.com/balenalabs/balena-cam/pull/62/files
 
